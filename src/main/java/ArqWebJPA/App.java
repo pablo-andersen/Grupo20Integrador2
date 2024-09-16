@@ -21,9 +21,8 @@ public class App
             * Clase nombreClase = new Clase();
             * manager.persist(nombreClase);
             *
-            * se puede repetir varias veces....*
+            * se puede repetir varias veces...
             *
-            * problemas con git
             */
 
             manager.getTransaction().commit();
