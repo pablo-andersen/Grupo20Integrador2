@@ -1,20 +1,24 @@
-package ArqWebJPA.Entities;
+package ArqWebJPA.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
-@Table(name = "CARRERA")
  public class Carrera {
     @Id
-    @Column(name="id_carrera")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column (name = "id_carrera")
     private int idCarrera;
     @Column (name = "nombre")
     private String nombre;
     @Column(name = "facultad")
     private String facultad;
+
+    //CONSULTA: Esto genera automáticamente la tabla intermedia? como le agregamos los datos de fecha de inscripcion y egreso?
+    //Similar a FacturaProducto
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Estudiante> inscriptos;
 
     public Carrera() {
 
@@ -48,5 +52,15 @@ import jakarta.persistence.Table;
 
     public void setFacultad(String facultad) {
         this.facultad = facultad;
+    }
+
+    @Override
+    public String toString() {
+        return "Carrera{" +
+                "idCarrera=" + idCarrera +
+                ", nombre='" + nombre + '\'' +
+                ", facultad='" + facultad + '\'' +
+                ", inscriptos=" + inscriptos +
+                '}';
     }
 }

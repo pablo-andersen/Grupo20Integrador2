@@ -1,4 +1,4 @@
-package ArqWebJPA.Entities;
+package ArqWebJPA.Entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import java.time.LocalDate;
-
+//CONSULTA: esta clase intermedia la tenemos que codear o la genera automáticamente JPA con la anotación @ManyToMany
 @Entity
 @Table(name="ESTUDIANTE_CARRERA")
 public class EstudianteCarrera {

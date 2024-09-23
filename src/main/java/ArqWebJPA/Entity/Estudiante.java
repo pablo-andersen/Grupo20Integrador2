@@ -1,15 +1,13 @@
-package ArqWebJPA.Entities;
+package ArqWebJPA.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 @Entity
-@Table(name = "ESTUDIANTE")
+//CONSULTA: La anotacion @Table cuando se coloca? Es opcional?
 public class Estudiante {
     @Id
     @Column(name = "nro_libreta")
@@ -26,6 +24,11 @@ public class Estudiante {
     private String genero;
     @Column(name = "localidad")
     private String localidad;
+
+    //CONSULTA: Esto genera automáticamente la tabla intermedia? como le agregamos los datos de fecha de inscripcion y egreso?
+    //Similar a FacturaProducto
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "inscriptos")
+    private List<Carrera> carreras;
 
     public Estudiante() {
 
@@ -100,5 +103,19 @@ public class Estudiante {
 
     public int getEdad(){
         return Period.between(fecha_nacimiento, LocalDate.now()).getYears();
+    }
+
+    @Override
+    public String toString() {
+        return "Estudiante{" +
+                "nro_Libreta=" + nro_Libreta +
+                ", nro_documento=" + nro_documento +
+                ", nombres='" + nombres + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", fecha_nacimiento=" + fecha_nacimiento +
+                ", genero='" + genero + '\'' +
+                ", localidad='" + localidad + '\'' +
+                ", carreras=" + carreras +
+                '}';
     }
 }
