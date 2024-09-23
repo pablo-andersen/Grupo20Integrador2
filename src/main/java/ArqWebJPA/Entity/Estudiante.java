@@ -1,47 +1,48 @@
 package ArqWebJPA.Entity;
 
-import jakarta.persistence.*;
 
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 //CONSULTA: La anotacion @Table cuando se coloca? Es opcional?
-public class Estudiante {
+public class Estudiante implements Serializable {
     @Id
-    @Column(name = "nro_libreta")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int nro_Libreta;
-    @Column(name = "nro_documento")
+    @Column
     private int nro_documento;
-    @Column(name = "nombres")
+    @Column
     private String nombres;
-    @Column(name = "apellido")
+    @Column
     private String apellido;
-    @Column(name = "fecha_nacimiento")
+    @Column
     private LocalDate fecha_nacimiento;
-    @Column(name = "genero")
+    @Column
     private String genero;
-    @Column(name = "localidad")
+    @Column
     private String localidad;
 
-    //CONSULTA: Esto genera automáticamente la tabla intermedia? como le agregamos los datos de fecha de inscripcion y egreso?
-    //Similar a FacturaProducto
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "inscriptos")
-    private List<Carrera> carreras;
+    @OneToMany(mappedBy = "estudiante")  //se refiere al atributo de estudianteCarrera
+    private List<EstudianteCarrera> carrerasInscriptas;
 
     public Estudiante() {
 
     }
 
-    public Estudiante(int nro_Libreta, int nro_documento, String nombres, String apellido, LocalDate fecha_nacimiento, String genero, String localidad) {
-        this.nro_Libreta = nro_Libreta;
+    public Estudiante(int nro_documento, String nombres, String apellido, LocalDate fecha_nacimiento, String genero, String localidad) {
         this.nro_documento = nro_documento;
         this.nombres = nombres;
         this.apellido = apellido;
         this.fecha_nacimiento = fecha_nacimiento;
         this.genero = genero;
         this.localidad = localidad;
+        this.carrerasInscriptas = new ArrayList<EstudianteCarrera>();
     }
 
 
@@ -115,7 +116,7 @@ public class Estudiante {
                 ", fecha_nacimiento=" + fecha_nacimiento +
                 ", genero='" + genero + '\'' +
                 ", localidad='" + localidad + '\'' +
-                ", carreras=" + carreras +
+                ", carreras=" + carrerasInscriptas +
                 '}';
     }
 }

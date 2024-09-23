@@ -1,33 +1,32 @@
 package ArqWebJPA.Entity;
 
-import jakarta.persistence.*;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
- public class Carrera {
+ public class Carrera implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column (name = "id_carrera")
     private int idCarrera;
-    @Column (name = "nombre")
+    @Column
     private String nombre;
-    @Column(name = "facultad")
+    @Column
     private String facultad;
 
-    //CONSULTA: Esto genera automáticamente la tabla intermedia? como le agregamos los datos de fecha de inscripcion y egreso?
-    //Similar a FacturaProducto
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Estudiante> inscriptos;
+    @OneToMany(mappedBy = "carrera")
+    private List<EstudianteCarrera> inscriptos;
 
     public Carrera() {
 
     }
 
-    public Carrera(int idCarrera, String nombre, String facultad) {
-        this.idCarrera = idCarrera;
+    public Carrera( String nombre, String facultad) {
         this.nombre = nombre;
         this.facultad = facultad;
+        this.inscriptos = new ArrayList<EstudianteCarrera>();
     }
 
     public int getIdCarrera() {
