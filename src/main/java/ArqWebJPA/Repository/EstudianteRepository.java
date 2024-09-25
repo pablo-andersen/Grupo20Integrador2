@@ -1,4 +1,4 @@
 package ArqWebJPA.Repository;
 
-public class EstudianteRepository {
+public interface EstudianteRepository {
 }

@@ -25,7 +25,7 @@ public class App {
 
         //e) recuperar todos los estudiantes, en base a su género.
         TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e WHERE e.genero = :genero", Estudiante.class);
-        query.setParameter("genero", "Femenino");
+        query.setParameter("genero", "Masculino");
         List<Estudiante> estudiantesSegunGenero = query.getResultList();
         estudiantesSegunGenero.forEach(System.out::println);
 

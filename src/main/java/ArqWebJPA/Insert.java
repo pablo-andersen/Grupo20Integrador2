@@ -24,6 +24,7 @@ public class Insert
             EntityManager manager = emf.createEntityManager();
             manager.getTransaction().begin();
 
+            //a) Dar de alta un estudiante
             Estudiante e1 = new Estudiante(30555444, "Pablo", "Lopez", LocalDate.of(1985, 12, 20), "masculino", "Tandil");
             Estudiante e2 = new Estudiante(30555445, "Lucia", "Garcia", LocalDate.of(1998, 1, 15), "femenino", "Mar del Plata");
             Estudiante e3 = new Estudiante(30555446, "Juan", "Martinez", LocalDate.of(1996, 3, 22), "masculino", "Buenos Aires");
