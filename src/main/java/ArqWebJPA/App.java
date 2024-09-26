@@ -23,10 +23,11 @@ public class App {
 
         //d)recuperar un estudiante, en base a su número de libreta universitaria.
         String jpql = "SELECT e FROM Estudiante e WHERE e.nro_Libreta = :nroLibreta";
-        Query q = em.createQuery(jpql, Estudiante.class);
-        q.setParameter("nroLibreta", 30555450);
-        Estudiante e = (Estudiante) q.getSingleResult();
-        System.out.println(e.toString());
+        TypedQuery<Estudiante> q = em.createQuery(jpql, Estudiante.class);
+        q.setParameter("nroLibreta", 20);
+        Estudiante e = q.getSingleResult();
+        System.out.println("EJERCICIO D");
+        System.out.println(q);
 
         //Estudiante estudiante = (Estudiante) em.createQuery("SELECT e FROM Estudiante e WHERE e.nro_Libreta = :nroLibreta").setParameter("nroLibreta", 30555450);
         //System.out.println(estudiante.toString());
