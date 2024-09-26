@@ -1,11 +1,16 @@
 package ArqWebJPA;
 
+import ArqWebJPA.DTO.EstudianteDTO;
 import ArqWebJPA.Entity.Estudiante;
+import ArqWebJPA.Entity.EstudianteCarrera;
+import ArqWebJPA.Repository.EstudianteRepository;
+import ArqWebJPA.Repository.EstudianteRepositoryImplementacion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.util.List;
 
 public class App {
@@ -14,23 +19,21 @@ public class App {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        //c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple
-        //Ordenamiento de estudiantes por apellidos (de menor a mayor alfabeticamente).
+        System.out.println("\n//////////////////////CONSIGNA 2-C)/////////////////////////////////\n");
 
-        List<Estudiante>estudiantes = em.createQuery("SELECT e FROM Estudiante e ORDER BY e.apellido ASC", Estudiante.class).getResultList();
-        estudiantes.forEach(System.out::println);
-        //Estudiante.class indica de que tipo es el resultado
+        EstudianteRepositoryImplementacion estudianteRepository = new EstudianteRepositoryImplementacion(em);
+        List<EstudianteDTO>estudiantesOrdenApellido = estudianteRepository.getEstudiantesOrdenApellido();
+        estudiantesOrdenApellido.forEach(System.out::println);
 
-        System.out.println("/////////////////////////////////////////////////////////");
 
-        //e) recuperar todos los estudiantes, en base a su género.
-        TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e WHERE e.genero = :genero", Estudiante.class);
-        query.setParameter("genero", "Femenino");
-        List<Estudiante> estudiantesSegunGenero = query.getResultList();
+        System.out.println("\n//////////////////////CONSIGNA 2-E)///////////////////////////////// \n");
+
+        List<EstudianteDTO> estudiantesSegunGenero = estudianteRepository.getEstudiantesSegunGenero("Masculino");
         estudiantesSegunGenero.forEach(System.out::println);
 
-        //el metodo createQuery devuelve un objeto de tipo TypedQuery
-        //Por eso a query luego le hago el .getResultList()
+        System.out.println("\n/////////////////////////////////////////////////////////\n");
+
+
 
         em.getTransaction().commit();
         em.close();
