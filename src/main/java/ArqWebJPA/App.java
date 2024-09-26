@@ -27,10 +27,13 @@ public class App {
         System.out.println("\n//////////////////////CONSIGNA 2-E)///////////////////////////////// \n");
 
         List<EstudianteDTO> estudiantesSegunGenero = estudianteRepository.getEstudiantesSegunGenero("Masculino");
+        estudiantesSegunGenero.forEach(System.out::println);
+
+
         //d)recuperar un estudiante, en base a su número de libreta universitaria.
         String jpql = "SELECT e FROM Estudiante e WHERE e.nro_Libreta = :nroLibreta";
         Query q = em.createQuery(jpql, Estudiante.class);
-        q.setParameter("nroLibreta", 30555450);
+        q.setParameter("nroLibreta", 18);
         Estudiante e = (Estudiante) q.getSingleResult();
         System.out.println(e.toString());
 
