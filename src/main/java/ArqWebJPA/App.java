@@ -1,9 +1,14 @@
 package ArqWebJPA;
 
+import ArqWebJPA.DTO.EstudianteDTO;
 import ArqWebJPA.Entity.Carrera;
 import ArqWebJPA.Entity.Estudiante;
+import ArqWebJPA.Entity.EstudianteCarrera;
+import ArqWebJPA.Repository.EstudianteRepository;
+import ArqWebJPA.Repository.EstudianteRepositoryImplementacion;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 public class App {
@@ -12,31 +17,34 @@ public class App {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        //c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple
-        //Ordenamiento de estudiantes por apellidos (de menor a mayor alfabeticamente).
+        System.out.println("\n//////////////////////CONSIGNA 2-C)/////////////////////////////////\n");
 
-        List<Estudiante>estudiantes = em.createQuery("SELECT e FROM Estudiante e ORDER BY e.apellido ASC", Estudiante.class).getResultList();
-        estudiantes.forEach(System.out::println);
-        //Estudiante.class indica de que tipo es el resultado
+        EstudianteRepositoryImplementacion estudianteRepository = new EstudianteRepositoryImplementacion(em);
+        List<EstudianteDTO>estudiantesOrdenApellido = estudianteRepository.getEstudiantesOrdenApellido();
+        estudiantesOrdenApellido.forEach(System.out::println);
 
-        System.out.println("/////////////////////////////////////////////////////////");
+
+        System.out.println("\n//////////////////////CONSIGNA 2-E)///////////////////////////////// \n");
+
+        List<EstudianteDTO> estudiantesSegunGenero = estudianteRepository.getEstudiantesSegunGenero("Masculino");
+        estudiantesSegunGenero.forEach(System.out::println);
+
 
         //d)recuperar un estudiante, en base a su número de libreta universitaria.
-        String jpql = "SELECT e FROM Estudiante e WHERE e.nro_Libreta = :nroLibreta";
-        TypedQuery<Estudiante> q = em.createQuery(jpql, Estudiante.class);
-        q.setParameter("nroLibreta", 20);
-        Estudiante e = q.getSingleResult();
-        System.out.println("EJERCICIO D");
-        System.out.println(q);
+        //MOVERLO A ESTUDIANTE REPOSITORY Y REALIZAR METODO
 
-        //Estudiante estudiante = (Estudiante) em.createQuery("SELECT e FROM Estudiante e WHERE e.nro_Libreta = :nroLibreta").setParameter("nroLibreta", 30555450);
-        //System.out.println(estudiante.toString());
+        String jpql = "SELECT  new ArqWebJPA.DTO.EstudianteDTO(e.nombres,e.apellido, e.genero,e.localidad)" +
+                      " FROM Estudiante e WHERE e.nro_Libreta = :nroLibreta";
+        TypedQuery<EstudianteDTO> q = em.createQuery(jpql, EstudianteDTO.class);
+        q.setParameter("nroLibreta", 18);
+        EstudianteDTO e = q.getSingleResult();
+        System.out.println("-----EJERCICIO D-----");
+        System.out.println(e.toString());
 
-        //e) recuperar todos los estudiantes, en base a su género.
-        TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e WHERE e.genero = :genero", Estudiante.class);
-        query.setParameter("genero", "Femenino");
-        List<Estudiante> estudiantesSegunGenero = query.getResultList();
-        estudiantesSegunGenero.forEach(System.out::println);
+
+
+        System.out.println("\n/////////////////////////////////////////////////////////\n");
+
 
         //f)recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
         String consulta = "SELECT c FROM Carrera c WHERE SIZE(c.inscriptos) > 0 ORDER BY SIZE(c.inscriptos) ASC";

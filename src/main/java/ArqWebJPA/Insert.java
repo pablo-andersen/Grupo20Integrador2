@@ -2,6 +2,7 @@ package ArqWebJPA;
 
 import ArqWebJPA.Entity.Carrera;
 import ArqWebJPA.Entity.Estudiante;
+import ArqWebJPA.Entity.EstudianteCarrera;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -66,6 +67,7 @@ public class Insert
             manager.persist(e19);
             manager.persist(e20);
 
+
             Carrera c1 = new Carrera("TUDAI", "Exactas");
             Carrera c2 = new Carrera("Ingenieria", "Exactas");
             Carrera c3 = new Carrera("TUPAR", "Exactas");
@@ -73,6 +75,11 @@ public class Insert
             manager.persist(c2);
             manager.persist(c3);
 
+            //PARA PROBAR EJERCICIO G
+            EstudianteCarrera estudianteCarrera1 = new EstudianteCarrera(LocalDate.of(2021,3,1),null,e1,c1);
+            EstudianteCarrera estudianteCarrera2 = new EstudianteCarrera(LocalDate.of(2020,3,1),LocalDate.of(2023,12,20),e2,c1);
+            manager.persist(estudianteCarrera1);
+            manager.persist(estudianteCarrera2);
 
             manager.getTransaction().commit();
             manager.close();
