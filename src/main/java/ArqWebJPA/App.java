@@ -31,15 +31,16 @@ public class App {
 
 
         //d)recuperar un estudiante, en base a su número de libreta universitaria.
-        String jpql = "SELECT e FROM Estudiante e WHERE e.nro_Libreta = :nroLibreta";
-        Query q = em.createQuery(jpql, Estudiante.class);
+        //MOVERLO A ESTUDIANTE REPOSITORY Y REALIZAR METODO
+
+        String jpql = "SELECT  new ArqWebJPA.DTO.EstudianteDTO(e.nombres,e.apellido, e.genero,e.localidad)" +
+                      " FROM Estudiante e WHERE e.nro_Libreta = :nroLibreta";
+        TypedQuery<EstudianteDTO> q = em.createQuery(jpql, EstudianteDTO.class);
         q.setParameter("nroLibreta", 18);
-        Estudiante e = (Estudiante) q.getSingleResult();
+        EstudianteDTO e = q.getSingleResult();
+        System.out.println("-----EJERCICIO D-----");
         System.out.println(e.toString());
-
-        //Estudiante estudiante = (Estudiante) em.createQuery("SELECT e FROM Estudiante e WHERE e.nro_Libreta = :nroLibreta").setParameter("nroLibreta", 30555450);
-        //System.out.println(estudiante.toString());
-
+        
 
 
         System.out.println("\n/////////////////////////////////////////////////////////\n");
