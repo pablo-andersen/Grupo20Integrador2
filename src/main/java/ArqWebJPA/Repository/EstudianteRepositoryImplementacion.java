@@ -1,7 +1,6 @@
 package ArqWebJPA.Repository;
 
 import ArqWebJPA.DTO.EstudianteDTO;
-import ArqWebJPA.Entity.Estudiante;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -37,4 +36,15 @@ public class EstudianteRepositoryImplementacion implements EstudianteRepository 
     }
     //el metodo createQuery devuelve un objeto de tipo TypedQuery
     //Por eso a query luego le hago el .getResultList()
+
+    @Override
+    public EstudianteDTO getEstudianteSegunNroLibreta(int nroLibreta){
+        String jpql = "SELECT  new ArqWebJPA.DTO.EstudianteDTO(e.nombres,e.apellido, e.genero,e.localidad)" +
+                " FROM Estudiante e WHERE e.nro_Libreta = :nroLibreta";
+        TypedQuery<EstudianteDTO> q = em.createQuery(jpql, EstudianteDTO.class);
+        q.setParameter("nroLibreta", nroLibreta);
+        EstudianteDTO e = q.getSingleResult();
+        return e;
+    }
+
 }

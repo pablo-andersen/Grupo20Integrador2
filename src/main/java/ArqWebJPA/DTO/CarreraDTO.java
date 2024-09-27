@@ -35,4 +35,6 @@ public class CarreraDTO {
     public void setGraduados(int graduados) {
         this.graduados = graduados;
     }
+
+
 }

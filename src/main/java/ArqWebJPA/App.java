@@ -1,15 +1,19 @@
 package ArqWebJPA;
 
+import ArqWebJPA.DTO.CarreraDTO;
 import ArqWebJPA.DTO.EstudianteDTO;
 import ArqWebJPA.Entity.Carrera;
 import ArqWebJPA.Entity.Estudiante;
 import ArqWebJPA.Entity.EstudianteCarrera;
+import ArqWebJPA.Repository.CarreraRepositoryImplementacion;
 import ArqWebJPA.Repository.EstudianteRepository;
 import ArqWebJPA.Repository.EstudianteRepositoryImplementacion;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+
 
 public class App {
     public static void main(String[] args) {
@@ -20,6 +24,7 @@ public class App {
         System.out.println("\n//////////////////////CONSIGNA 2-C)/////////////////////////////////\n");
 
         EstudianteRepositoryImplementacion estudianteRepository = new EstudianteRepositoryImplementacion(em);
+        CarreraRepositoryImplementacion carreraRepository = new CarreraRepositoryImplementacion(em);
         List<EstudianteDTO>estudiantesOrdenApellido = estudianteRepository.getEstudiantesOrdenApellido();
         estudiantesOrdenApellido.forEach(System.out::println);
 
@@ -31,13 +36,7 @@ public class App {
 
 
         //d)recuperar un estudiante, en base a su número de libreta universitaria.
-        //MOVERLO A ESTUDIANTE REPOSITORY Y REALIZAR METODO
-
-        String jpql = "SELECT  new ArqWebJPA.DTO.EstudianteDTO(e.nombres,e.apellido, e.genero,e.localidad)" +
-                      " FROM Estudiante e WHERE e.nro_Libreta = :nroLibreta";
-        TypedQuery<EstudianteDTO> q = em.createQuery(jpql, EstudianteDTO.class);
-        q.setParameter("nroLibreta", 18);
-        EstudianteDTO e = q.getSingleResult();
+        EstudianteDTO e = estudianteRepository.getEstudianteSegunNroLibreta(18);
         System.out.println("-----EJERCICIO D-----");
         System.out.println(e.toString());
 
@@ -47,9 +46,8 @@ public class App {
 
 
         //f)recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
-        String consulta = "SELECT c FROM Carrera c WHERE SIZE(c.inscriptos) > 0 ORDER BY SIZE(c.inscriptos) ASC";
-        TypedQuery<Carrera> query2 = em.createQuery(consulta, Carrera.class);
-        List<Carrera> carrerasCantInscriptos = query2.getResultList();
+        System.out.println("-----EJERCICIO F-----");
+        List<CarreraDTO> carrerasCantInscriptos = carreraRepository.getCarrerasConIncriptosOrdenadas();
         carrerasCantInscriptos.forEach(System.out::println);
 
         //el metodo createQuery devuelve un objeto de tipo TypedQuery
