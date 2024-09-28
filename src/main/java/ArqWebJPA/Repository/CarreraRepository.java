@@ -1,7 +1,12 @@
 package ArqWebJPA.Repository;
 //CONSULTA: esto reemplaza a los DAO's?? El metodo concreto dónde va?
 
+import ArqWebJPA.DTO.CarreraDTO;
+
+import java.util.List;
+
 public interface CarreraRepository {
+    public abstract List<CarreraDTO> getCarrerasConIncriptosOrdenadas();
 
     public abstract void addCarrera();
 
