@@ -81,6 +81,54 @@ public class Insert
             manager.persist(estudianteCarrera1);
             manager.persist(estudianteCarrera2);
 
+            Carrera c4 = new Carrera("Matematica", "Exactas");
+            Carrera c5 = new Carrera("Fisica", "Exactas");
+            Carrera c6 = new Carrera("TUARI", "Exactas");
+
+            manager.persist(c4);
+            manager.persist(c5);
+            manager.persist(c6);
+
+//PARA PROBAR EJERCICIO G
+            EstudianteCarrera estudianteCarrera3 = new EstudianteCarrera(LocalDate.of(2022,3,1), null, e3, c1); // Juan Martinez en TUDAI
+            EstudianteCarrera estudianteCarrera4 = new EstudianteCarrera(LocalDate.of(2021,3,1), LocalDate.of(2024,12,20), e4, c2); // Ana Perez en Ingenieria (egresada)
+            EstudianteCarrera estudianteCarrera5 = new EstudianteCarrera(LocalDate.of(2020,3,1), null, e5, c3); // Carlos Diaz en TUPAR
+            EstudianteCarrera estudianteCarrera6 = new EstudianteCarrera(LocalDate.of(2020,3,1), LocalDate.of(2023,12,15), e6, c4); // Maria Sanchez en Matematica (egresada)
+            EstudianteCarrera estudianteCarrera7 = new EstudianteCarrera(LocalDate.of(2022,3,1), null, e7, c5); // Sergio Romero en Fisica
+            EstudianteCarrera estudianteCarrera8 = new EstudianteCarrera(LocalDate.of(2021,3,1), null, e8, c6); // Laura Torres en TUARI
+            EstudianteCarrera estudianteCarrera9 = new EstudianteCarrera(LocalDate.of(2020,3,1), LocalDate.of(2023,11,30), e9, c1); // Martin Gomez en TUDAI (egresado)
+            EstudianteCarrera estudianteCarrera10 = new EstudianteCarrera(LocalDate.of(2021,3,1), null, e10, c2); // Paula Ruiz en Ingenieria
+            EstudianteCarrera estudianteCarrera11 = new EstudianteCarrera(LocalDate.of(2022,3,1), LocalDate.of(2024,6,10), e11, c3); // Jorge Alvarez en TUPAR (egresado)
+            EstudianteCarrera estudianteCarrera12 = new EstudianteCarrera(LocalDate.of(2023,3,1), null, e12, c4); // Sofia Ramirez en Matematica
+            EstudianteCarrera estudianteCarrera13 = new EstudianteCarrera(LocalDate.of(2020,3,1), null, e13, c5); // Diego Fernandez en Fisica
+            EstudianteCarrera estudianteCarrera14 = new EstudianteCarrera(LocalDate.of(2021,3,1), LocalDate.of(2023,12,1), e14, c6); // Carolina Acosta en TUARI (egresada)
+            EstudianteCarrera estudianteCarrera15 = new EstudianteCarrera(LocalDate.of(2022,3,1), null, e15, c1); // Miguel Benitez en TUDAI
+            EstudianteCarrera estudianteCarrera16 = new EstudianteCarrera(LocalDate.of(2023,3,1), null, e16, c2); // Gabriela Molina en Ingenieria
+            EstudianteCarrera estudianteCarrera17 = new EstudianteCarrera(LocalDate.of(2021,3,1), LocalDate.of(2024,5,30), e17, c3); // Hector Morales en TUPAR (egresado)
+            EstudianteCarrera estudianteCarrera18 = new EstudianteCarrera(LocalDate.of(2022,3,1), null, e18, c4); // Natalia Cabrera en Matematica
+            EstudianteCarrera estudianteCarrera19 = new EstudianteCarrera(LocalDate.of(2023,3,1), null, e19, c5); // Fernando Herrera en Fisica
+            EstudianteCarrera estudianteCarrera20 = new EstudianteCarrera(LocalDate.of(2020,3,1), LocalDate.of(2024,12,10), e20, c6); // Victoria Castro en TUARI (egresada)
+
+
+            manager.persist(estudianteCarrera3);
+            manager.persist(estudianteCarrera4);
+            manager.persist(estudianteCarrera5);
+            manager.persist(estudianteCarrera6);
+            manager.persist(estudianteCarrera7);
+            manager.persist(estudianteCarrera8);
+            manager.persist(estudianteCarrera9);
+            manager.persist(estudianteCarrera10);
+            manager.persist(estudianteCarrera11);
+            manager.persist(estudianteCarrera12);
+            manager.persist(estudianteCarrera13);
+            manager.persist(estudianteCarrera14);
+            manager.persist(estudianteCarrera15);
+            manager.persist(estudianteCarrera16);
+            manager.persist(estudianteCarrera17);
+            manager.persist(estudianteCarrera18);
+            manager.persist(estudianteCarrera19);
+            manager.persist(estudianteCarrera20);
+
             manager.getTransaction().commit();
             manager.close();
             emf.close();
