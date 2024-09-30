@@ -35,4 +35,14 @@ public class CarreraDTO {
     public void setGraduados(int graduados) {
         this.graduados = graduados;
     }
+
+
+    @Override
+    public String toString() {
+        return "CarreraDTO{" +
+                "nombreCarrera='" + nombreCarrera + '\'' +
+                ", inscriptos=" + inscriptos +
+                ", graduados=" + graduados +
+                '}';
+    }
 }

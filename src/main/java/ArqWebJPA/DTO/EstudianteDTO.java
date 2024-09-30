@@ -12,6 +12,13 @@ public class EstudianteDTO {
     private int nro_libreta;
     private List<EstudianteCarreraDTO> carreras;
 
+    public EstudianteDTO(String nombres, String apellido, String genero, String localidad) {
+        this.nombres = nombres;
+        this.apellido = apellido;
+        this.genero = genero;
+        this.localidad = localidad;
+    }
+
     public String getNombres() {
         return nombres;
     }
@@ -76,4 +83,13 @@ public class EstudianteDTO {
 
     }
 
+    @Override
+    public String toString() {
+        return " EstudianteDTO{" +
+                "nombres='" + nombres + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", genero='" + genero + '\'' +
+                ", localidad='" + localidad + '\'' +
+                '}';
+    }
 }
