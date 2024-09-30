@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//CONSULTA: La anotacion @Table cuando se coloca? Es opcional?
 public class Estudiante implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int nro_Libreta;

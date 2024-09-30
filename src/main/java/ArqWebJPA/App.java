@@ -2,6 +2,7 @@ package ArqWebJPA;
 
 import ArqWebJPA.DTO.CarreraDTO;
 import ArqWebJPA.DTO.EstudianteDTO;
+import ArqWebJPA.DTO.ReporteCarreraDTO;
 import ArqWebJPA.Entity.Carrera;
 import ArqWebJPA.Entity.Estudiante;
 import ArqWebJPA.Entity.EstudianteCarrera;
@@ -44,7 +45,6 @@ public class App {
 
         System.out.println("\n/////////////////////////////////////////////////////////\n");
 
-
         //f)recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos.
         System.out.println("-----EJERCICIO F-----");
         List<CarreraDTO> carrerasCantInscriptos = carreraRepository.getCarrerasConIncriptosOrdenadas();
@@ -52,6 +52,12 @@ public class App {
 
         //el metodo createQuery devuelve un objeto de tipo TypedQuery
         //Por eso a query luego le hago el .getResultList()
+
+        //EJERCICIO 3
+        System.out.println("--------EJERCICIO 3--------");
+
+        List<ReporteCarreraDTO> reporteCarreras = carreraRepository.getReporteCarreras();
+        reporteCarreras.forEach(System.out::println);
 
         em.getTransaction().commit();
         em.close();
