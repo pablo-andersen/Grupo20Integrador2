@@ -10,8 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//CONSULTA: La anotacion @Table cuando se coloca? Es opcional?
+@NamedQuery(
+        name = Estudiante.ESTUDIANTES_ORDENADOS_APELLIDO,
+        query = "SELECT new ArqWebJPA.DTO.EstudianteDTO(e.nombres,e.apellido, e.genero,e.localidad)" +
+                " FROM Estudiante e ORDER BY e.apellido ASC"
+)
 public class Estudiante implements Serializable {
+    public static final String ESTUDIANTES_ORDENADOS_APELLIDO = "Estudiante.estudiantesOrdenadosApellidos";
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int nro_Libreta;

@@ -1,6 +1,7 @@
 package ArqWebJPA.Repository;
 
 import ArqWebJPA.DTO.EstudianteDTO;
+import ArqWebJPA.Entity.Estudiante;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -18,8 +19,7 @@ public class EstudianteRepositoryImplementacion implements EstudianteRepository 
     @Override
     public List<EstudianteDTO> getEstudiantesOrdenApellido() {
         List<EstudianteDTO>estudiantes =
-                em.createQuery("SELECT new ArqWebJPA.DTO.EstudianteDTO(e.nombres,e.apellido, e.genero,e.localidad)" +
-                                       " FROM Estudiante e ORDER BY e.apellido ASC", EstudianteDTO.class).getResultList();
+                em.createNamedQuery(Estudiante.ESTUDIANTES_ORDENADOS_APELLIDO, EstudianteDTO.class).getResultList();
         //Estudiante.class indica de que tipo es el resultado
         return estudiantes;
     }
