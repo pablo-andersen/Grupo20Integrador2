@@ -4,6 +4,7 @@ import ArqWebJPA.DTO.EstudianteDTO;
 import ArqWebJPA.Entity.Estudiante;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -55,7 +56,13 @@ public class EstudianteRepositoryImplementacion implements EstudianteRepository 
                 " FROM Estudiante e WHERE e.nro_Libreta = :nroLibreta";
         TypedQuery<EstudianteDTO> q = em.createQuery(jpql, EstudianteDTO.class);
         q.setParameter("nroLibreta", nroLibreta);
-        EstudianteDTO e = q.getSingleResult();
+        EstudianteDTO e = null;
+        try{
+            e = q.getSingleResult();
+        } catch (NoResultException ex) {
+            //Control cuando no se encuentra el nroLibreta
+            System.out.println("No se encontro un estudiante con el número de libreta " + nroLibreta);
+        }
         return e;
     }
 

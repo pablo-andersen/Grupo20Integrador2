@@ -56,7 +56,7 @@ public class App {
         System.out.println("\n////////////////////// CONSIGNA 2-D) ///////////////////////////////// \n");
 
         EstudianteDTO e = estudianteRepository.getEstudianteSegunNroLibreta(18);
-        System.out.println(e.toString());
+        System.out.println(e);
 
 
         //e) recuperar todos los estudiantes, en base a su género.
