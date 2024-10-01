@@ -1,6 +1,7 @@
 package ArqWebJPA.Repository;
 
 import ArqWebJPA.DTO.EstudianteDTO;
+import ArqWebJPA.Entity.Estudiante;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -12,6 +13,17 @@ public class EstudianteRepositoryImplementacion implements EstudianteRepository 
     public EstudianteRepositoryImplementacion(EntityManager em) {
         this.em = em;
     }
+
+    @Override
+    public void addEstudiante(Estudiante estudiante) {
+        if(!em.contains(estudiante)) {
+            em.persist(estudiante);
+        }
+        else{
+            em.merge(estudiante);
+        }
+    }
+
 
     //c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple
     //Ordenamiento de estudiantes por apellidos (de menor a mayor alfabeticamente).

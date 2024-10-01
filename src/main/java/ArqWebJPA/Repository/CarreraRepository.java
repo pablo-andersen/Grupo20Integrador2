@@ -3,6 +3,7 @@ package ArqWebJPA.Repository;
 
 import ArqWebJPA.DTO.CarreraDTO;
 import ArqWebJPA.DTO.ReporteCarreraDTO;
+import ArqWebJPA.Entity.Carrera;
 import ArqWebJPA.Entity.Estudiante;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public interface CarreraRepository {
     public abstract List<CarreraDTO> getCarrerasConInscriptosOrdenadas();
 
-    public abstract void addCarrera();
+    public abstract void addCarrera(Carrera carrera);
 
     public abstract void getAllCarreras();
 

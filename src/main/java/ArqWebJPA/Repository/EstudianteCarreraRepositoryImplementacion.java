@@ -1,6 +1,7 @@
 package ArqWebJPA.Repository;
 
 import ArqWebJPA.DTO.EstudianteDTO;
+import ArqWebJPA.Entity.EstudianteCarrera;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -10,6 +11,16 @@ public class EstudianteCarreraRepositoryImplementacion implements EstudianteCarr
 
     public EstudianteCarreraRepositoryImplementacion(EntityManager em) {
         this.em = em;
+    }
+
+    @Override
+    public void addEstudianteCarrera(EstudianteCarrera estudianteCarrera) {
+        if(!em.contains(estudianteCarrera)) {
+            em.persist(estudianteCarrera);
+        }
+        else{
+            em.merge(estudianteCarrera);
+        }
     }
 
     @Override

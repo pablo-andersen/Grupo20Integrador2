@@ -31,8 +31,13 @@ public class CarreraRepositoryImplementacion implements CarreraRepository{
     }
 
     @Override
-    public void addCarrera() {
-
+    public void addCarrera(Carrera carrera) {
+        if (!em.contains(carrera)) {
+            em.persist(carrera);
+        }
+        else {
+            em.merge(carrera);
+        }
     }
 
     @Override

@@ -4,6 +4,8 @@ import ArqWebJPA.Entity.Carrera;
 import ArqWebJPA.Entity.Estudiante;
 import ArqWebJPA.Entity.EstudianteCarrera;
 import ArqWebJPA.Repository.CarreraRepositoryImplementacion;
+import ArqWebJPA.Repository.EstudianteCarreraRepositoryImplementacion;
+import ArqWebJPA.Repository.EstudianteRepositoryImplementacion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -70,57 +72,57 @@ public class Insert
             Estudiante e19 = new Estudiante(30555462, "Fernando", "Herrera", LocalDate.of(1995, 2, 16), "masculino", "Formosa");
             Estudiante e20 = new Estudiante(30555463, "Victoria", "Castro", LocalDate.of(1994, 4, 24), "femenino", "San Luis");
 
-            manager.persist(e1);
-            manager.persist(e2);
-            manager.persist(e3);
-            manager.persist(e4);
-            manager.persist(e5);
-            manager.persist(e6);
-            manager.persist(e7);
-            manager.persist(e8);
-            manager.persist(e9);
-            manager.persist(e10);
-            manager.persist(e11);
-            manager.persist(e12);
-            manager.persist(e13);
-            manager.persist(e14);
-            manager.persist(e15);
-            manager.persist(e16);
-            manager.persist(e17);
-            manager.persist(e18);
-            manager.persist(e19);
-            manager.persist(e20);
+            EstudianteRepositoryImplementacion estudiante = new EstudianteRepositoryImplementacion(manager);
+
+            estudiante.addEstudiante(e1);
+            estudiante.addEstudiante(e2);
+            estudiante.addEstudiante(e3);
+            estudiante.addEstudiante(e4);
+            estudiante.addEstudiante(e5);
+            estudiante.addEstudiante(e6);
+            estudiante.addEstudiante(e7);
+            estudiante.addEstudiante(e8);
+            estudiante.addEstudiante(e9);
+            estudiante.addEstudiante(e10);
+            estudiante.addEstudiante(e11);
+            estudiante.addEstudiante(e12);
+            estudiante.addEstudiante(e13);
+            estudiante.addEstudiante(e14);
+            estudiante.addEstudiante(e15);
+            estudiante.addEstudiante(e16);
+            estudiante.addEstudiante(e17);
+            estudiante.addEstudiante(e18);
+            estudiante.addEstudiante(e19);
+            estudiante.addEstudiante(e20);
 
 
             Carrera c1 = new Carrera("TUDAI", "Exactas");
             Carrera c2 = new Carrera("Ingenieria", "Exactas");
             Carrera c3 = new Carrera("TUPAR", "Exactas");
-            manager.persist(c1);
-            manager.persist(c2);
-            manager.persist(c3);
+            Carrera c4 = new Carrera("Matematica", "Exactas");
+            Carrera c5 = new Carrera("Fisica", "Exactas");
+            Carrera c6 = new Carrera("TUARI", "Exactas");
+
 
             //b) matricular un estudiante en una carrera
             System.out.println("\n//////////////////////CONSIGNA 2-B)/////////////////////////////////\n");
             CarreraRepositoryImplementacion carrera = new CarreraRepositoryImplementacion(manager);
 
+            carrera.addCarrera(c1);
+            carrera.addCarrera(c2);
+            carrera.addCarrera(c3);
+            carrera.addCarrera(c4);
+            carrera.addCarrera(c5);
+            carrera.addCarrera(c6);
+
             carrera.matricularEstudianteByNombre("Victoria", "Castro", "Ingenieria");
             carrera.matricularEstudianteById(11,22);
+
+
 
             //PARA PROBAR EJERCICIO G
             EstudianteCarrera estudianteCarrera1 = new EstudianteCarrera(LocalDate.of(2021,3,1),null,e1,c1);
             EstudianteCarrera estudianteCarrera2 = new EstudianteCarrera(LocalDate.of(2020,3,1),LocalDate.of(2023,12,20),e4,c1);
-            manager.persist(estudianteCarrera1);
-            manager.persist(estudianteCarrera2);
-
-            Carrera c4 = new Carrera("Matematica", "Exactas");
-            Carrera c5 = new Carrera("Fisica", "Exactas");
-            Carrera c6 = new Carrera("TUARI", "Exactas");
-
-            manager.persist(c4);
-            manager.persist(c5);
-            manager.persist(c6);
-
-            //PARA PROBAR EJERCICIO G
             EstudianteCarrera estudianteCarrera3 = new EstudianteCarrera(LocalDate.of(2022,3,1), null, e3, c1); // Juan Martinez en TUDAI
             EstudianteCarrera estudianteCarrera4 = new EstudianteCarrera(LocalDate.of(2021,3,1), LocalDate.of(2024,12,20), e4, c2); // Ana Perez en Ingenieria (egresada)
             EstudianteCarrera estudianteCarrera5 = new EstudianteCarrera(LocalDate.of(2020,3,1), null, e5, c3); // Carlos Diaz en TUPAR
@@ -141,24 +143,32 @@ public class Insert
             EstudianteCarrera estudianteCarrera20 = new EstudianteCarrera(LocalDate.of(2020,3,1), LocalDate.of(2024,12,10), e20, c6); // Victoria Castro en TUARI (egresada)
 
 
-            manager.persist(estudianteCarrera3);
-            manager.persist(estudianteCarrera4);
-            manager.persist(estudianteCarrera5);
-            manager.persist(estudianteCarrera6);
-            manager.persist(estudianteCarrera7);
-            manager.persist(estudianteCarrera8);
-            manager.persist(estudianteCarrera9);
-            manager.persist(estudianteCarrera10);
-            manager.persist(estudianteCarrera11);
-            manager.persist(estudianteCarrera12);
-            manager.persist(estudianteCarrera13);
-            manager.persist(estudianteCarrera14);
-            manager.persist(estudianteCarrera15);
-            manager.persist(estudianteCarrera16);
-            manager.persist(estudianteCarrera17);
-            manager.persist(estudianteCarrera18);
-            manager.persist(estudianteCarrera19);
-            manager.persist(estudianteCarrera20);
+
+            EstudianteCarreraRepositoryImplementacion estudianteCarrera = new EstudianteCarreraRepositoryImplementacion(manager);
+
+
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera1);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera2);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera3);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera4);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera5);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera6);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera7);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera8);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera9);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera10);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera11);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera12);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera13);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera14);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera15);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera16);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera17);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera18);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera19);
+            estudianteCarrera.addEstudianteCarrera(estudianteCarrera20);
+
+
 
             manager.getTransaction().commit();
             manager.close();
