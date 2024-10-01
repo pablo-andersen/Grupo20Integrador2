@@ -3,17 +3,20 @@ package ArqWebJPA.Repository;
 
 import ArqWebJPA.DTO.CarreraDTO;
 import ArqWebJPA.DTO.ReporteCarreraDTO;
+import ArqWebJPA.Entity.Estudiante;
 
 import java.util.List;
 
 public interface CarreraRepository {
-    public abstract List<CarreraDTO> getCarrerasConIncriptosOrdenadas();
+    public abstract List<CarreraDTO> getCarrerasConInscriptosOrdenadas();
 
     public abstract void addCarrera();
 
     public abstract void getAllCarreras();
 
-    public abstract boolean matricularEstudiante();
+    public abstract void matricularEstudianteById(int nroLibreta, int id_carrera);
+
+    public abstract void matricularEstudianteByNombre(String nombreAlumno, String apellidoAlumno, String nombreCarrera);
 
     public abstract boolean deleteCarrera();
 

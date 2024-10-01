@@ -3,13 +3,16 @@ package ArqWebJPA.DTO;
 public class CarreraDTO {
 
     private String nombreCarrera;
-    private int inscriptos;
-    private int graduados;
+    private Long inscriptos;
 
     public CarreraDTO(String nombreCarrera) {
         this.nombreCarrera = nombreCarrera;
-        this.inscriptos = 0;
-        this.graduados = 0;
+        this.inscriptos = 0L;
+    }
+
+    public CarreraDTO(String nombreCarrera, Long inscriptos) {
+        this.nombreCarrera = nombreCarrera;
+        this.inscriptos = inscriptos;
     }
 
     public String getNombreCarrera() {
@@ -20,29 +23,19 @@ public class CarreraDTO {
         this.nombreCarrera = nombreCarrera;
     }
 
-    public int getInscriptos() {
+    public Long getInscriptos() {
         return inscriptos;
     }
 
-    public void setInscriptos(int inscriptos) {
+    public void setInscriptos(Long inscriptos) {
         this.inscriptos = inscriptos;
     }
-
-    public int getGraduados() {
-        return graduados;
-    }
-
-    public void setGraduados(int graduados) {
-        this.graduados = graduados;
-    }
-
 
     @Override
     public String toString() {
         return "CarreraDTO{" +
                 "nombreCarrera='" + nombreCarrera + '\'' +
                 ", inscriptos=" + inscriptos +
-                ", graduados=" + graduados +
                 '}';
     }
 }

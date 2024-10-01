@@ -32,7 +32,12 @@ public class EstudianteCarrera implements Serializable {
         this.estudiante = estudiante;
         this.carrera = carrera;
     }
-
+    public EstudianteCarrera(Estudiante estudiante, Carrera carrera) {
+        this.fecha_inscripcion = LocalDate.now();
+        this.fecha_egreso = null;
+        this.estudiante = estudiante;
+        this.carrera = carrera;
+    }
 
     public LocalDate getFecha_inscripcion() {
         return fecha_inscripcion;

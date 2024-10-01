@@ -4,6 +4,7 @@ import ArqWebJPA.DTO.CarreraDTO;
 import ArqWebJPA.DTO.ReporteCarreraDTO;
 import ArqWebJPA.Entity.Carrera;
 import ArqWebJPA.Entity.Estudiante;
+import ArqWebJPA.Entity.EstudianteCarrera;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -19,11 +20,13 @@ public class CarreraRepositoryImplementacion implements CarreraRepository{
     }
 
     @Override
-    public List<CarreraDTO> getCarrerasConIncriptosOrdenadas() {
-        List<CarreraDTO> carrerasCantInscriptos = em.createQuery("SELECT NEW ArqWebJPA.DTO.CarreraDTO(c.nombre)" +
-                " FROM Carrera c WHERE SIZE(c.inscriptos) > 0 ORDER BY SIZE(c.inscriptos) ASC",CarreraDTO.class).getResultList();
-//        TypedQuery<Carrera> query2 = em.createQuery(consulta, Carrera.class);
-//        List<Carrera> carrerasCantInscriptos = query2.getResultList();
+    public List<CarreraDTO> getCarrerasConInscriptosOrdenadas() {
+        List<CarreraDTO> carrerasCantInscriptos = em.createQuery("SELECT NEW ArqWebJPA.DTO.CarreraDTO(c.nombre, COUNT(ec)) " +
+                "FROM Carrera c JOIN c.inscriptos ec " +
+                "GROUP BY c.nombre " +
+                "HAVING COUNT(ec) > 0 " +
+                "ORDER BY COUNT(ec) DESC",CarreraDTO.class).getResultList();
+
         return carrerasCantInscriptos;
     }
 
@@ -38,8 +41,33 @@ public class CarreraRepositoryImplementacion implements CarreraRepository{
     }
 
     @Override
-    public boolean matricularEstudiante() {
-        return false;
+    public void matricularEstudianteById(int nroLibreta, int id_carrera) {
+
+        Estudiante estudiante = em.createQuery("SELECT e FROM Estudiante e WHERE e.nro_Libreta = :nroLibreta", Estudiante.class)
+                .setParameter("nroLibreta", nroLibreta)
+                .getSingleResult();
+
+        Carrera carrera = em.createQuery("SELECT c FROM Carrera c WHERE c.idCarrera =: id_carrera", Carrera.class)
+                .setParameter("id_carrera", id_carrera)
+                .getSingleResult();
+
+        EstudianteCarrera estudianteCarrera = new EstudianteCarrera(estudiante, carrera);
+        em.persist(estudianteCarrera);
+    }
+
+    public void matricularEstudianteByNombre(String nombreAlumno, String apellidoAlumno, String nombreCarrera) {
+
+        Estudiante estudiante = em.createQuery("SELECT e FROM Estudiante e WHERE e.nombres = :nombreAlumno AND e.apellido = :apellidoAlumno", Estudiante.class)
+                .setParameter("nombreAlumno",nombreAlumno)
+                .setParameter("apellidoAlumno",apellidoAlumno)
+                .getSingleResult();
+
+        Carrera carrera = em.createQuery("SELECT c FROM Carrera c WHERE c.nombre = :nombreCarrera", Carrera.class)
+                .setParameter("nombreCarrera", nombreCarrera)
+                .getSingleResult();
+
+        EstudianteCarrera estudianteCarrera = new EstudianteCarrera(estudiante, carrera);
+        em.persist(estudianteCarrera);
     }
 
     @Override
@@ -48,18 +76,19 @@ public class CarreraRepositoryImplementacion implements CarreraRepository{
     }
 
     @Override
+
     public List<ReporteCarreraDTO> getReporteCarreras() {
         Query query = em.createNativeQuery("SELECT nombre AS nombre_carrera, EXTRACT(YEAR FROM anio) AS anio," +
                 "SUM(estudiantes_inscriptos) AS estudiantes_inscriptos, " +
                 "SUM(estudiantes_egresados) AS estudiantes_egresados " +
                 "FROM ( " +
                          //Inscripciones
-                        "SELECT ec.fecha_incscripcion AS anio, ca.nombre, " +
+                        "SELECT ec.fecha_inscripcion AS anio, ca.nombre, " +
                         "COUNT(ec.estudiante_nro_Libreta) AS estudiantes_inscriptos, " +
                         "0 AS estudiantes_egresados FROM Carrera ca JOIN " +
                         "EstudianteCarrera ec ON ca.idCarrera = ec.carrera_idCarrera " +
                         "JOIN Estudiante e ON e.nro_Libreta = ec.estudiante_nro_Libreta " +
-                        "GROUP BY ca.nombre, ec.fecha_incscripcion " +
+                        "GROUP BY ca.nombre, ec.fecha_inscripcion " +
 
                         "UNION ALL " +
 
@@ -74,6 +103,7 @@ public class CarreraRepositoryImplementacion implements CarreraRepository{
 
 
         // Obtener los resultados y mapearlos al DTO
+        @SuppressWarnings("unchecked")
         List<Object[]> resultados = query.getResultList();
         List<ReporteCarreraDTO> reporteDTOs = new ArrayList<>();
 
